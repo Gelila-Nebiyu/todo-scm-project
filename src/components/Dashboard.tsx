@@ -15,9 +15,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 
   useEffect(() => {
     const saved = localStorage.getItem('taskflow_todos');
-    if (saved) {
-      setTodos(JSON.parse(saved));
-    }
+    if (saved) setTodos(JSON.parse(saved));
   }, []);
 
   useEffect(() => {
@@ -27,14 +25,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const handleAddTodo = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!inputValue.trim()) return;
-
-    const newTodo: Todo = {
-      id: crypto.randomUUID(),
-      text: inputValue.trim(),
-      completed: false,
-      createdAt: Date.now(),
-    };
-
+    const newTodo: Todo = { id: crypto.randomUUID(), text: inputValue.trim(), completed: false, createdAt: Date.now() };
     setTodos([newTodo, ...todos]);
     setInputValue('');
   };
@@ -49,176 +40,129 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 
   const handleAISuggest = async () => {
     setIsAIThinking(true);
-    const suggestions = await suggestTasks(todos.map(t => t.text));
-    
-    const newTodos: Todo[] = suggestions.map(text => ({
-      id: crypto.randomUUID(),
-      text,
-      completed: false,
-      createdAt: Date.now(),
-    }));
-
-    setTodos(prev => [...newTodos, ...prev]);
-    setIsAIThinking(false);
+    try {
+      const suggestions = await suggestTasks(todos.map(t => t.text));
+      const newTodos: Todo[] = suggestions.map(text => ({
+        id: crypto.randomUUID(),
+        text,
+        completed: false,
+        createdAt: Date.now(),
+      }));
+      setTodos(prev => [...newTodos, ...prev]);
+    } finally {
+      setIsAIThinking(false);
+    }
   };
 
   const completedCount = todos.filter(t => t.completed).length;
+  const progress = todos.length ? Math.round((completedCount / todos.length) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Premium Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-20">
+    <div className="min-h-screen bg-slate-50 flex flex-col pb-20">
+      <nav className="glass sticky top-0 z-40 border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-2.5 rounded-xl shadow-lg shadow-indigo-200">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            <div className="bg-indigo-600 p-2 rounded-xl shadow-lg">
+              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
+            <span className="text-lg font-extrabold text-slate-900 tracking-tight">TaskFlow <span className="text-indigo-600">Pro</span></span>
+          </div>
+          <button onClick={onLogout} className="text-xs font-extrabold text-slate-400 hover:text-red-500 transition-colors tracking-widest uppercase">
+            Exit Session
+          </button>
+        </div>
+      </nav>
+
+      <main className="flex-1 max-w-4xl w-full mx-auto px-6 py-12">
+        {/* Modern Analytics */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div className="bg-blue-50 p-3 rounded-2xl text-blue-600">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">TaskFlow <span className="text-indigo-600">Pro</span></h1>
-              <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">AI Workspace</p>
+              <p className="text-3xl font-black text-slate-900 leading-none">{todos.length}</p>
+              <p className="text-xs font-bold text-slate-400 uppercase mt-1">Pending</p>
             </div>
           </div>
-          <div className="flex items-center space-x-6">
-            <div className="hidden md:flex flex-col items-end">
-              <span className="text-sm font-semibold text-slate-700">Administrator</span>
-              <span className="text-xs text-green-500 font-medium flex items-center">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
-                Active Now
-              </span>
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div className="bg-emerald-50 p-3 rounded-2xl text-emerald-600">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
             </div>
-            <button
-              onClick={onLogout}
-              className="px-4 py-2 text-sm font-bold text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main className="flex-1 max-w-5xl w-full mx-auto px-6 py-10">
-        {/* Modern Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-indigo-100 transition-colors">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Inventory</span>
-              <div className="bg-slate-50 p-1.5 rounded-lg text-slate-400">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
-              </div>
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-black text-slate-900">{todos.length}</p>
-              <p className="text-sm font-medium text-slate-500">Tasks</p>
+            <div>
+              <p className="text-3xl font-black text-emerald-600 leading-none">{completedCount}</p>
+              <p className="text-xs font-bold text-slate-400 uppercase mt-1">Completed</p>
             </div>
           </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-green-100 transition-colors">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Success</span>
-              <div className="bg-green-50 p-1.5 rounded-lg text-green-500">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-              </div>
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div className="bg-indigo-50 p-3 rounded-2xl text-indigo-600">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-black text-green-600">{completedCount}</p>
-              <p className="text-sm font-medium text-slate-500">Done</p>
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-indigo-100 transition-colors">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Productivity</span>
-              <div className="bg-indigo-50 p-1.5 rounded-lg text-indigo-500">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-              </div>
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <p className="text-3xl font-black text-indigo-600">
-                {todos.length ? Math.round((completedCount / todos.length) * 100) : 0}%
-              </p>
-              <p className="text-sm font-medium text-slate-500">Score</p>
+            <div>
+              <p className="text-3xl font-black text-indigo-600 leading-none">{progress}%</p>
+              <p className="text-xs font-bold text-slate-400 uppercase mt-1">Efficiency</p>
             </div>
           </div>
         </div>
 
-        {/* Action Bar */}
-        <div className="bg-white rounded-3xl p-3 border border-slate-200 shadow-xl shadow-slate-200/50 mb-10">
-          <form onSubmit={handleAddTodo} className="flex gap-2">
+        {/* Action Header */}
+        <div className="bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl shadow-indigo-900/10 mb-10 border border-white/5 flex flex-col sm:flex-row gap-2">
+          <form onSubmit={handleAddTodo} className="flex-1 flex items-center">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="What needs to be done?"
-              className="flex-1 bg-transparent px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none font-medium"
+              placeholder="Deploy a new objective..."
+              className="w-full bg-transparent px-6 py-4 text-white placeholder:text-slate-500 focus:outline-none font-medium text-lg"
             />
-            <button
-              type="submit"
-              className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 focus:ring-4 focus:ring-slate-200 transition-all flex items-center justify-center min-w-[140px]"
-            >
-              Add Task
-            </button>
           </form>
-        </div>
-
-        {/* Section Header */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900">Today's Focus</h2>
-            <p className="text-sm text-slate-500 font-medium">Manage your goals and optimize with AI</p>
+          <div className="flex gap-2 p-1">
+            <button
+              onClick={() => handleAddTodo()}
+              className="bg-white text-slate-900 px-8 py-4 rounded-[1.75rem] font-bold hover:bg-slate-200 transition-all active:scale-95"
+            >
+              Add
+            </button>
+            <button
+              onClick={handleAISuggest}
+              disabled={isAIThinking}
+              className={`px-8 py-4 rounded-[1.75rem] font-bold text-white transition-all flex items-center space-x-2 ${
+                isAIThinking ? 'bg-indigo-900/50 text-indigo-400' : 'animate-shimmer hover:scale-[1.02] active:scale-95 shadow-lg shadow-indigo-500/20'
+              }`}
+            >
+              <svg className={`w-4 h-4 ${isAIThinking ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>{isAIThinking ? 'Optimizing' : 'AI Boost'}</span>
+            </button>
           </div>
-          <button
-            onClick={handleAISuggest}
-            disabled={isAIThinking}
-            className={`group relative overflow-hidden flex items-center space-x-2 font-bold py-3.5 px-6 rounded-2xl transition-all ${
-              isAIThinking 
-                ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200' 
-                : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200 hover:-translate-y-0.5'
-            }`}
-          >
-            <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full ${!isAIThinking && 'group-hover:animate-[shimmer_2s_infinite]'}`}></div>
-            <svg className={`w-5 h-5 ${isAIThinking ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <span>{isAIThinking ? 'Analyzing Context...' : 'AI Optimization'}</span>
-          </button>
         </div>
 
-        {/* Task List */}
+        {/* Task Feed */}
         <div className="space-y-4">
           {todos.length === 0 ? (
-            <div className="text-center py-24 bg-white border border-dashed border-slate-300 rounded-3xl">
-              <div className="bg-slate-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
+            <div className="text-center py-20 bg-white/50 border-2 border-dashed border-slate-200 rounded-[3rem]">
+              <div className="text-slate-300 mb-4">
+                 <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Workspace Empty</h3>
-              <p className="text-slate-500 font-medium max-w-xs mx-auto">Your productivity board is currently empty. Add a task to begin your day.</p>
+              <h3 className="text-xl font-bold text-slate-400">Neutral Workspace</h3>
+              <p className="text-slate-400 text-sm font-medium mt-1">Awaiting your first directive.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4">
               {todos.map(todo => (
-                <TodoItem 
-                  key={todo.id} 
-                  todo={todo} 
-                  onToggle={toggleTodo} 
-                  onDelete={deleteTodo} 
-                />
+                <TodoItem key={todo.id} todo={todo} onToggle={toggleTodo} onDelete={deleteTodo} />
               ))}
             </div>
           )}
         </div>
       </main>
 
-      <footer className="py-12 border-t border-slate-200 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
-        &copy; {new Date().getFullYear()} TaskFlow Systems Inc.
+      <footer className="fixed bottom-0 left-0 right-0 bg-white/50 backdrop-blur-md py-4 text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase border-t border-slate-100">
+        TaskFlow PRO Version 2.0 &bull; Secure AI Node Enabled
       </footer>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes shimmer {
-          100% { transform: translateX(100%); }
-        }
-      `}} />
     </div>
   );
 };
