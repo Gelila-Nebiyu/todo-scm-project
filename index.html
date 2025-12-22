@@ -1,30 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow Pro | Modern AI Workspace</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>TaskFlow Pro | Secure Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-      .glass {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-      .animate-shimmer {
-        background: linear-gradient(90deg, #6366f1 0%, #a855f7 50%, #6366f1 100%);
-        background-size: 200% auto;
-        animation: shimmer 3s linear infinite;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
 <script type="importmap">
 {
   "imports": {
@@ -38,8 +19,42 @@
 }
 </script>
 </head>
-<body class="antialiased text-slate-900">
-    <div id="root"></div>
-    <script type="module" src="src/index.tsx"></script>
+<body class="bg-slate-900 flex items-center justify-center min-h-screen p-4 overflow-hidden relative">
+    <!-- Background Decor -->
+    <div class="absolute top-0 -left-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-0 -right-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"></div>
+
+    <div class="max-w-md w-full relative z-10">
+        <div class="glass rounded-[2.5rem] p-10 shadow-2xl border border-white/10">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center p-4 bg-indigo-600 rounded-2xl shadow-lg mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">TaskFlow <span class="text-indigo-400">Pro</span></h1>
+                <p class="text-slate-400 font-medium mt-2 text-sm uppercase tracking-widest">Secure Entry</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div id="login-error" class="hidden bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm font-semibold text-center"></div>
+                
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Identity</label>
+                    <input type="text" id="username" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600 font-medium" placeholder="Username (admin)" required>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Authorization</label>
+                    <input type="password" id="password" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600 font-medium" placeholder="Password (password)" required>
+                </div>
+
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-5 rounded-xl transition-all shadow-xl shadow-indigo-500/20 active:scale-[0.98]">
+                    Unlock Workspace
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="auth.js"></script>
 </body>
 </html>
