@@ -9,43 +9,39 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const authFlag = localStorage.getItem('taskflow_auth');
-    if (authFlag === AuthStatus.AUTHENTICATED) {
+    // Check localStorage for authenticated state using the key 'authenticated'
+    const authFlag = localStorage.getItem('authenticated');
+    if (authFlag === 'true') {
       setIsAuthenticated(true);
     }
-    // Artificial delay for smoother entrance
-    const timer = setTimeout(() => setIsLoading(false), 800);
+    
+    // Smooth loading transition
+    const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
   const handleLogin = () => {
-    localStorage.setItem('taskflow_auth', AuthStatus.AUTHENTICATED);
+    localStorage.setItem('authenticated', 'true');
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('taskflow_auth');
+    // Only remove auth status, todos persist in 'backend'
+    localStorage.removeItem('authenticated');
     setIsAuthenticated(false);
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 space-y-6">
-        <div className="relative">
-          <div className="w-20 h-20 bg-indigo-600 rounded-2xl animate-bounce shadow-2xl shadow-indigo-200 flex items-center justify-center">
-            <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-slate-200 rounded-full blur-sm" />
-        </div>
-        <p className="text-slate-400 font-bold tracking-widest text-xs uppercase animate-pulse">Initializing System...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white space-y-4">
+        <div className="w-12 h-12 border-4 border-[#db4c3f] border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-gray-400 font-bold text-xs uppercase tracking-widest animate-pulse">Loading Workspace</p>
       </div>
     );
   }
 
   return (
-    <div className="antialiased font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="antialiased font-sans">
       {isAuthenticated ? (
         <Dashboard onLogout={handleLogout} />
       ) : (

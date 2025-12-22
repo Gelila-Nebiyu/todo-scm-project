@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Pro | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="glass sticky top-0 z-40 border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-2 rounded-xl shadow-lg">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <span class="text-lg font-extrabold text-slate-900 tracking-tight">TaskFlow <span class="text-indigo-600">Pro</span></span>
+            </div>
+            <button id="logout-btn" class="text-xs font-extrabold text-slate-400 hover:text-red-500 transition-colors tracking-widest uppercase px-3 py-2 rounded-lg hover:bg-red-50">
+                Revoke Access
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-12">
+        <!-- New Task Input -->
+        <div class="bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl shadow-indigo-900/10 mb-10 border border-white/5 flex flex-col sm:flex-row gap-2">
+            <input type="text" id="todo-input" placeholder="What's the next objective?" class="flex-1 bg-transparent px-6 py-4 text-white placeholder:text-slate-500 focus:outline-none font-medium text-lg">
+            <button id="add-btn" class="bg-white text-slate-900 px-10 py-4 rounded-[1.75rem] font-bold hover:bg-slate-200 transition-all active:scale-95">
+                Add Task
+            </button>
+        </div>
+
+        <!-- Section Header -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Active Objectives</h2>
+            <p class="text-sm font-medium text-slate-400">Current mission queue</p>
+        </div>
+
+        <!-- Task List -->
+        <ul id="todo-list" class="space-y-4">
+            <!-- Items injected by JS -->
+        </ul>
+    </main>
+
+    <footer class="py-8 text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase">
+        &copy; 2025 TaskFlow Systems Inc. &bull; Secure Node
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
