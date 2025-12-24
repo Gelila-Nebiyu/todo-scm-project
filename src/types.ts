@@ -1,5 +1,5 @@
 
-export type Priority = 1 | 2 | 3 | 4;
+export type Priority = 'High' | 'Medium' | 'Low';
 
 export interface Todo {
   id: number;
@@ -7,6 +7,7 @@ export interface Todo {
   completed: boolean;
   createdAt: number;
   dueDate: string; // ISO string YYYY-MM-DD
+  dueTime?: string; // HH:mm format
   priority: Priority;
   description?: string;
 }

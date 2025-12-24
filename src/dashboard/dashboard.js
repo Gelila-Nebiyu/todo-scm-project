@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Authentication Guard
     const authState = localStorage.getItem('authenticated');
@@ -78,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     todoList.addEventListener('click', (e) => {
         const toggleBtn = e.target.closest('.toggle-btn');
         const deleteBtn = e.target.closest('.delete-btn');
-        
 
         if (toggleBtn) {
             const id = parseInt(toggleBtn.dataset.id);
@@ -101,4 +101,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load
     render();
 });
-
