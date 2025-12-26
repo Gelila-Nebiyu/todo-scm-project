@@ -1,0 +1,6 @@
+# CODEOWNERS – Auto-request reviews for all changes
+# Format: pattern @username1 @username2
+* @Gelila-Nebiyu @Eden344 @dawit2-4 @dawitsema @Ola-je 
+# Optional: Specific patterns
+/src/ @Gelila-Nebiyu   # Code reviewers
+/docs/  @delal-ali @HanaAb16         # Docs reviewers
