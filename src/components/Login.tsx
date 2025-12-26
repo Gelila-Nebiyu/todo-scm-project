@@ -20,49 +20,59 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen bg-[#1a1a1a] flex flex-col items-center justify-center p-6 font-sans">
+      <div className="max-w-md w-full bg-white rounded-xl shadow-2xl p-8 md:p-10 animate-fade-in">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center p-4 bg-[#db4c3f] rounded-2xl shadow-xl shadow-red-200 mb-6">
-            <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="inline-flex items-center justify-center p-3 bg-[#880D1E] rounded-lg mb-4">
+            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="text-3xl font-black text-[#202020] tracking-tight mb-2">TaskFlow Pro</h1>
-          <p className="text-gray-500 font-medium text-sm">Organize your life. Achieve your goals.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">TaskFlow</h1>
+          <p className="text-gray-500 text-sm mt-1">Please login to continue</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {error && <p className="bg-red-50 text-red-500 text-xs font-bold py-3 px-4 rounded-lg border border-red-100 text-center">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {error && (
+            <div className="bg-red-50 text-red-600 text-xs font-semibold py-2 px-3 rounded border border-red-100 text-center">
+              {error}
+            </div>
+          )}
           
-          <input
-            type="text"
-            placeholder="Identity (admin)"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#db4c3f] transition-all font-medium text-[14px]"
-            required
-          />
+          <div>
+            <label className="block text-xs font-bold text-gray-700 mb-1 ml-0.5">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#880D1E] focus:border-[#880D1E] transition-all text-gray-900 placeholder-gray-400"
+              placeholder="e.g. admin"
+              required
+            />
+          </div>
           
-          <input
-            type="password"
-            placeholder="Authorization (password)"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-[#db4c3f] transition-all font-medium text-[14px]"
-            required
-          />
+          <div>
+            <label className="block text-xs font-bold text-gray-700 mb-1 ml-0.5">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#880D1E] focus:border-[#880D1E] transition-all text-gray-900 placeholder-gray-400"
+              placeholder="••••••••"
+              required
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-full bg-[#db4c3f] hover:bg-[#c53d2e] text-white font-bold py-3.5 rounded-lg transition-all shadow-lg shadow-red-100 active:scale-95"
+            className="w-full bg-[#880D1E] hover:bg-[#6e0a18] text-white font-bold py-3 rounded transition-colors shadow-sm"
           >
             Log in
           </button>
         </form>
 
-        <div className="mt-12 text-center text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em]">
-          Secured Enterprise Node 01
+        <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+          <p className="text-xs text-gray-400">© 2025 TaskFlow Management</p>
         </div>
       </div>
     </div>

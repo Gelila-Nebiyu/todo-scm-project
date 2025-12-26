@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Pro | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand-maroon: #880D1E; }
+        .bg-maroon { background-color: var(--brand-maroon); }
+        .text-maroon { color: var(--brand-maroon); }
+        .border-maroon { border-color: var(--brand-maroon); }
+        .ring-maroon { --tw-ring-color: var(--brand-maroon); }
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-[#1e293b] antialiased min-h-screen flex font-['Inter']">
+    
+    <!-- Sidebar -->
+    <aside class="w-80 bg-white border-r border-slate-200 flex-shrink-0 hidden lg:flex flex-col p-6 overflow-y-auto">
+        <div class="flex items-center space-x-3 mb-10">
+            <div class="bg-maroon p-2 rounded-xl shadow-lg">
+                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            </div>
+            <span class="text-xl font-extrabold tracking-tight">TaskFlow <span class="text-maroon">Pro</span></span>
+        </div>
+
+        <!-- Calendar Widget -->
+        <div class="mb-10">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Schedule</h3>
+                <span id="calendar-month" class="text-xs font-bold text-maroon"></span>
+            </div>
+            <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold">
+                <!-- Days injected by JS -->
+            </div>
+        </div>
+
+        <!-- Progress Widget -->
+        <div class="mt-auto bg-slate-50 rounded-3xl p-6 border border-slate-100">
+            <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Mission Success</h4>
+            <div class="relative pt-1">
+                <div class="flex mb-2 items-center justify-between">
+                    <div>
+                        <span id="progress-text" class="text-xs font-bold inline-block py-1 px-2 uppercase rounded-full text-maroon bg-red-50">
+                            0%
+                        </span>
+                    </div>
+                </div>
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-red-50">
+                    <div id="progress-bar" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-maroon transition-all duration-1000"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <!-- Top Nav -->
+        <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 py-4 flex items-center justify-between z-20">
+            <div class="flex items-center space-x-4">
+                <h2 class="text-lg font-bold">Workspace</h2>
+                <div id="sync-indicator" class="flex items-center space-x-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                    <span>Synced to cloud</span>
+                </div>
+            </div>
+            <button id="logout-btn" class="text-[10px] font-bold text-slate-400 hover:text-red-600 transition-colors tracking-widest uppercase px-4 py-2 rounded-xl hover:bg-red-50 border border-slate-100">
+                Revoke Access
+            </button>
+        </nav>
+
+        <!-- Tasks Area -->
+        <div class="flex-1 overflow-y-auto p-8 lg:p-12">
+            <div class="max-w-4xl mx-auto">
+                <!-- Enhanced Add Task Form -->
+                <div class="bg-slate-900 rounded-[2rem] p-6 shadow-2xl shadow-maroon/10 mb-12 border border-white/5">
+                    <div class="flex flex-col space-y-4">
+                        <input type="text" id="todo-input" placeholder="Initiate a new objective..." 
+                            class="w-full bg-transparent px-4 py-2 text-white placeholder:text-slate-500 focus:outline-none font-medium text-xl border-b border-white/10 pb-4">
+                        
+                        <div class="flex flex-wrap items-center gap-4">
+                            <div class="flex-1 min-w-[150px]">
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Due Date</label>
+                                <input type="date" id="todo-date" 
+                                    class="w-full bg-white/5 text-white/70 px-4 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-maroon transition-all text-sm">
+                            </div>
+                            
+                            <div class="flex-1 min-w-[150px]">
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Priority</label>
+                                <select id="todo-priority" 
+                                    class="w-full bg-white/5 text-white/70 px-4 py-2.5 rounded-xl border border-white/10 focus:outline-none focus:border-maroon transition-all text-sm appearance-none">
+                                    <option value="Low" class="bg-slate-800">Low</option>
+                                    <option value="Medium" class="bg-slate-800" selected>Medium</option>
+                                    <option value="High" class="bg-slate-800">High</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-end pt-5">
+                                <button id="add-btn" 
+                                    class="bg-maroon text-white px-10 py-3 rounded-xl font-bold hover:bg-[#6e0a18] transition-all active:scale-95 whitespace-nowrap shadow-lg shadow-maroon/20">
+                                    Execute
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Active Objectives</h2>
+                        <p class="text-sm font-medium text-slate-400">Manage your daily critical path</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <span class="bg-red-50 text-maroon px-4 py-1.5 rounded-full text-xs font-bold border border-red-100" id="task-count">0 Tasks</span>
+                    </div>
+                </div>
+
+                <!-- Todo List Container -->
+                <ul id="todo-list" class="space-y-4 pb-20">
+                    <!-- Items injected by JS -->
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
