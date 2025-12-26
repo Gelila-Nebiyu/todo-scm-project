@@ -6,55 +6,29 @@
     <title>TaskFlow Pro | Secure Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --brand-maroon: #880D1E; }
+        .bg-maroon { background-color: var(--brand-maroon); }
+        .text-maroon { color: var(--brand-maroon); }
+        .border-maroon { border-color: var(--brand-maroon); }
+    </style>
 <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
+    "vite": "https://esm.sh/vite@^7.3.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
     "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "vite": "https://esm.sh/vite@^7.3.0",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-slate-900 flex items-center justify-center min-h-screen p-4 overflow-hidden relative">
-    <!-- Background Decor -->
-    <div class="absolute top-0 -left-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
-    <div class="absolute bottom-0 -right-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"></div>
-
-    <div class="max-w-md w-full relative z-10">
-        <div class="glass rounded-[2.5rem] p-10 shadow-2xl border border-white/10">
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center justify-center p-4 bg-indigo-600 rounded-2xl shadow-lg mb-6">
-                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <h1 class="text-3xl font-extrabold text-white tracking-tight">TaskFlow <span class="text-indigo-400">Pro</span></h1>
-                <p class="text-slate-400 font-medium mt-2 text-sm uppercase tracking-widest">Secure Entry</p>
-            </div>
-
-            <form id="login-form" class="space-y-6">
-                <div id="login-error" class="hidden bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm font-semibold text-center"></div>
-                
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Identity</label>
-                    <input type="text" id="username" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600 font-medium" placeholder="Username (admin)" required>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Authorization</label>
-                    <input type="password" id="password" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600 font-medium" placeholder="Password (password)" required>
-                </div>
-
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-5 rounded-xl transition-all shadow-xl shadow-indigo-500/20 active:scale-[0.98]">
-                    Unlock Workspace
-                </button>
-            </form>
-        </div>
-    </div>
-    <script src="auth.js"></script>
+<body class="bg-[#1a1a1a]">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
