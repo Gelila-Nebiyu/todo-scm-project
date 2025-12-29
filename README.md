@@ -1,85 +1,86 @@
-TaskFlow Pro
-TaskFlow Pro is a complete, production-ready, web-based to-do list application developed to demonstrate professional Software Configuration Management (SCM) practices alongside modern frontend engineering.
 
-This repository represents the final release (v1.1.0), with all approved change requests fully implemented and version-controlled.
+# TaskFlow Pro
 
-📋 Repository Information
-Repository: https://github.com/Gelila-Nebiyu/todo-scm-project
+TaskFlow Pro is a complete, production-ready, web-based to-do list application developed to demonstrate professional **Software Configuration Management (SCM)** practices alongside modern frontend engineering.
+This repository represents the **final release (v1.1.0)**, with all approved change requests fully implemented and version-controlled.
 
-Project Name: TaskFlow Pro
+---
 
-Current Release: v1.1.0 (Final / Complete System)
+## Project Information
 
-Primary Language: TypeScript
+| Item                    | Details                                                               |
+| ----------------------- | --------------------------------------------------------------------- |
+| **Repository**          | [todo-scm-project](https://github.com/Gelila-Nebiyu/todo-scm-project) |
+| **Project Name**        | TaskFlow Pro                                                          |
+| **Current Release**     | v1.1.0 (Final / Complete System)                                      |
+| **Primary Language**    | TypeScript                                                            |
+| **Framework & Tooling** | React, Vite, Tailwind CSS                                             |
+| **License**             | MIT License                                                           |
+| **Project Status**      | Complete – All planned features delivered under SCM control           |
 
-Framework & Tooling: React, Vite, Tailwind CSS
+---
 
-License: MIT License
+## Project Overview
 
-Project Status: Complete – All planned features delivered under SCM control
-
-🚀 Project Overview
 TaskFlow Pro is a responsive task management web application with secure authentication, advanced task handling, and customizable UI theming.
+The project follows structured SCM workflows, including version control, documented change requests, and controlled releases.
 
-The project was developed following structured SCM workflows, including versioning, documented change requests, and controlled releases.
+The **v1.1.0 release** represents the finalized system, incorporating all functional and visual enhancements approved during development.
 
-The v1.1.0 release represents the finalized system, incorporating all functional and visual enhancements requested during development.
+---
 
-✨ Key Features (v1.1.0 – Final Release)
-🔐 User Authentication
-Secure login and logout functionality
+## Features (v1.1.0 – Final Release)
 
-Session persistence using localStorage
+### User Authentication
 
-Default test credentials for demonstration and evaluation
+* Secure login and logout functionality
+* Session persistence using `localStorage`
+* Default test credentials for demonstration and evaluation
 
-📋 Task Management Dashboard
-Full CRUD operations (Create, Read, Update, Delete)
+### Task Management Dashboard
 
-Task priority levels with visual indicators:
+* Full CRUD operations (Create, Read, Update, Delete)
+* Task priority levels with visual indicators:
 
-High: Red badge
+  * **High** – Red badge
+  * **Medium** – Yellow badge
+  * **Low** – Green badge
+* Due date selection via date picker
+* Automatic overdue task highlighting
+* Responsive, mobile-friendly layout
 
-Medium: Yellow badge
+### Theme & Styling
 
-Low: Green badge
+* Custom primary theme color: **#880D1E**
+* Dark-themed login page
+* Centered, modern login card design
+* Tailwind CSS-powered responsive UI
 
-Due date selection via date picker
+### User Experience
 
-Automatic overdue task highlighting
+* Loading indicators for improved feedback
+* Intuitive forms and interaction flows
 
-Responsive, mobile-friendly layout
+### Optional AI Integration
 
-🎨 Theme & Styling
-Custom primary theme color: #880D1E
+* Gemini AI API support for advanced functionality
+* Configurable via environment variables
+* Fully optional and disabled by default
 
-Dark-themed login page
+---
 
-Centered, modern login card design
+## Default Test Credentials
 
-Tailwind CSS–powered responsive UI
-
-💫 User Experience Enhancements
-Loading indicators for improved feedback
-
-Intuitive forms and interaction flows
-
-🤖 Optional AI Integration
-Gemini AI API support for advanced functionality
-
-Configurable via environment variables
-
-Fully optional and disabled by default
-
-🔐 Default Test Credentials
 These credentials are provided for testing and demonstration purposes:
 
-Username: admin
+* **Username:** admin
+* **Password:** password
 
-Password: password
+---
 
-📁 Project Structure
-text
+## Project Structure
+
+```text
 .
 ├── .github/                # GitHub workflows and configuration
 ├── data/                   # Local data storage
@@ -97,86 +98,119 @@ text
 ├── vite.config.ts
 ├── .env.example            # Environment variable template
 └── README.md               # Project documentation
-⚙️ Installation and Setup
-Prerequisites
-Node.js v18 or higher
+```
 
-npm
+---
 
-Step-by-Step Setup
-1. Clone the Repository
-bash
+## Installation and Setup
+
+### Prerequisites
+
+* Node.js **v18 or higher**
+* npm
+
+### Step-by-Step Setup
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Gelila-Nebiyu/todo-scm-project.git
 cd todo-scm-project
-2. Checkout the Latest Release (Recommended)
-bash
+```
+
+### 2. Checkout the Latest Release (Recommended)
+
+```bash
 git checkout v1.1.0
-Alternatively, you may use the main branch for the latest stable code.
+```
 
-3. Install Dependencies
-bash
+Alternatively, use the `main` branch for the latest stable code.
+
+### 3. Install Dependencies
+
+```bash
 npm install
-4. Configure Environment Variables (Optional – AI Features Only)
-Create a .env file in the project root:
+```
 
-text
+### 4. Configure Environment Variables (*Optional – AI Features Only*)
+
+Create a `.env` file in the project root:
+
+```env
 VITE_API_KEY=your_gemini_api_key_here
-Note: Obtain the API key from Google AI Studio. This step is optional and only required if Gemini AI features are enabled.
+```
 
-5. Start the Development Server
-bash
+*Note:* Obtain the API key from Google AI Studio. This step is optional and only required if Gemini AI features are enabled.
+
+### 5. Start the Development Server
+
+```bash
 npm run dev
-🌐 Accessing the Application
+```
+
+---
+
+## Accessing the Application
+
 Once the development server is running, open your browser and navigate to the local URL provided by Vite (typically):
 
-text
+```text
 http://localhost:5173
-📖 Usage Guide
-Log in using the default credentials
+```
 
-Create tasks with:
+---
 
-Title and description
+## Usage Guide
 
-Priority level
+* Log in using the default credentials
+* Create tasks with:
 
-Due date
+  * Title and description
+  * Priority level
+  * Due date
+* View:
 
-View:
+  * Color-coded priorities
+  * Overdue task alerts
+* Edit or delete tasks as needed
+* Experience the custom dark-themed login and vibrant task dashboard
 
-Color-coded priorities
+---
 
-Overdue task alerts
+## Release History
 
-Edit or delete tasks as needed
+### v1.0.0 (24 Dec 2025)
 
-Experience the custom dark-themed login and vibrant task dashboard
+* Initial working system with core authentication and task management
 
-📜 Release History
-v1.0.0 (24 Dec 2025)
-Initial working system with core authentication and task management
+### v1.1.0 (Final Release)
 
-v1.1.0 (Final Release)
-Complete implementation of all approved change requests:
+* Complete implementation of all approved change requests:
 
-Task priorities
-
-Due dates
-
-Custom theme
+  * Task priorities
+  * Due dates
+  * Custom theme
 
 Detailed release notes are available at:
-https://github.com/Gelila-Nebiyu/todo-scm-project/releases
+[Project Releases](https://github.com/Gelila-Nebiyu/todo-scm-project/releases)
 
-🤝 Contributing
+---
+
+## Contributing
+
 This project follows structured SCM practices. Contributions should adhere to the following guidelines:
 
-Create feature branches for changes
+* Create feature branches for changes
+* Reference relevant Change Requests when applicable
+* Submit Pull Requests with clear, descriptive summaries
 
-Reference relevant Change Requests when applicable
+---
 
-Submit Pull Requests with clear, descriptive summaries
+## License
 
-📄 License
-This project is licensed under the MIT License.
-See the LICENSE file for full license details.
+This project is licensed under the **MIT License**.
+See the [LICENSE](LICENSE) file for full license details.
+
+---
+
+
