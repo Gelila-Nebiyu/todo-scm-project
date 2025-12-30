@@ -1,8 +1,37 @@
 
 import React, { useState, useEffect } from 'react';
-import { Todo, ViewType, Priority } from '../types';
+
+const ViewType = {
+  INBOX: 'inbox',
+  TODAY: 'today',
+  UPCOMING: 'upcoming',
+} as const;
+type ViewType = (typeof ViewType)[keyof typeof ViewType];
+
+type Priority = 1 | 2 | 3 | 4 | 5;
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+  createdAt: number;
+  dueDate: string;
+  priority: Priority;
+}
+
 import TodoItem from './TodoItem';
-import { suggestTasks } from '../services/geminiService';
+
+// Fallback stub for suggestTasks when external service module is missing.
+// Returns simple suggestions based on existing task texts.
+async function suggestTasks(existing: string[]): Promise<string[]> {
+  const base = [
+    'Review your priorities',
+    "Plan tomorrow's tasks",
+    'Reply to important emails'
+  ];
+  const lower = new Set(existing.map(s => s.toLowerCase()));
+  return base.filter(b => !lower.has(b.toLowerCase()));
+}
 
 interface DashboardProps {
   onLogout: () => void;
